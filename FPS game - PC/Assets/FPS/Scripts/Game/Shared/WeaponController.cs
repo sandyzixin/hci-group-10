@@ -72,7 +72,7 @@ namespace Unity.FPS.Game
 
         [Header("Ammo Parameters")]
         [Tooltip("Should the player manually reload")]
-        public bool AutomaticReload = true;
+        public bool AutomaticReload = false;
         [Tooltip("Has physical clip on the weapon and ammo shells are ejected when firing")]
         public bool HasPhysicalBullets = false;
         [Tooltip("Number of bullets in a clip")]
