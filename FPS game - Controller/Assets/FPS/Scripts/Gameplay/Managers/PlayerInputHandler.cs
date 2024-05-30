@@ -9,7 +9,7 @@ namespace Unity.FPS.Gameplay
         public float LookSensitivity = 1f;
 
         [Tooltip("Additional sensitivity multiplier for WebGL")]
-        public float WebglLookSensitivityMultiplier = 0.25f;
+        public float WebglLookSensitivityMultiplier = 0.40f;
 
         [Tooltip("Limit to consider an input when using a trigger on a controller")]
         public float TriggerAxisThreshold = 0.4f;
