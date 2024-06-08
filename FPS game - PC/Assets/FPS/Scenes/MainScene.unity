@@ -331,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47472a0e96556245a6478d52658071a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 4008933581619590513}
 --- !u!82 &346562465
 AudioSource:
   m_ObjectHideFlags: 0
@@ -440,6 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a148084a30e144eb24bb34985d6007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 4008933581619590513}
+  level: 1
 --- !u!4 &398217299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2141676431450117668, guid: cd17687759887a0438ee021e51abc9d9,

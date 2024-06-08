@@ -9,8 +9,8 @@ public class HighScoreDisplay : MonoBehaviour
     List<HighScoreEntry> scores = new List<HighScoreEntry>();
 
 
-    public void DisplayHighScore(string name, float score)
-    {
+    public void DisplayHighScore(string name, float score) { 
+    
         nameText.text = name;
         scoreText.text = string.Format("{0:0000}", score);
     }

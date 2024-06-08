@@ -51,7 +51,7 @@ public class HighScore : MonoBehaviour
     void OnSubmitScore()
     {
         string playerName = nameInputField.text;
-        //float playerScore = scoreManager.GetScore(); // Get the score from ScoreManager
+        //double playerScore = scoreManager.GetScore(); // Get the score from ScoreManager
         float playerScore = Random.Range(0f, 10000f);
 
         AddNewScore(playerName, playerScore);

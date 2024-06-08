@@ -7,7 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     private float score;
     public TextMeshProUGUI scoreText;
-    public int pointsPerSecond = 10;
+    public int level;
     private float timer;
     private int secondsElapsed;
     private int minutesElapsed;
@@ -31,19 +31,23 @@ public class ScoreManager : MonoBehaviour
             secondsElapsed = -1;
         }
 
+        
+
         if (timer >= 1.0f)
         {
-            score += pointsPerSecond;
+            score = minutesElapsed + (secondsElapsed * 0.1f);
             // Increment the elapsed seconds counter
             secondsElapsed++;
 
             if (secondsElapsed < 10)
             {
-                scoreText.text = "Score: " + Mathf.Round(score) + " | Time: " + minutesElapsed + ":0" + secondsElapsed;
+                //scoreText.text = "Score: " + score + " | Time: " + minutesElapsed + ":0" + secondsElapsed;
+                scoreText.text = "Time: " + minutesElapsed + ":0" + secondsElapsed;
             }
             else
             {
-                scoreText.text = "Score: " + Mathf.Round(score) + " | Time: " + minutesElapsed + ":" + secondsElapsed;
+                //scoreText.text = "Score: " + score + " | Time: " + minutesElapsed + ":" + secondsElapsed;
+                scoreText.text = "Time: " + minutesElapsed + ":" + secondsElapsed;
             }
 
             // Reset the timer
@@ -55,5 +59,10 @@ public class ScoreManager : MonoBehaviour
     public float GetScore()
     {
         return score;
+    }
+
+    public float GetLevel()
+    {
+        return level;
     }
 }

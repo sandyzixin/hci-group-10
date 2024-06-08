@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
+using Unity.VisualScripting;
 
 public class XMLManager : MonoBehaviour
 {
     public static XMLManager instance;
     public Leaderboard leaderboard;
-
+    public Leaderboard leaderboard2;
+    public Leaderboard leaderboard3; //hiermee zou je misschien van de drie levels een nieuwe scorebord kunnen maken 
+    public ScoreManager scoreManager; //ik heb een getLevel functie in ScoreManager gezet,
+                                      //je zou misschien iets kunnen doen van als level 1 voer deze code uit met leaderbord als level == 2 met leaderboard2 etc
+    
     void Awake()
     {
         instance = this;
