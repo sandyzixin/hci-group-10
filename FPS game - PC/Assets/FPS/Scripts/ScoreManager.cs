@@ -5,6 +5,8 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
+
     private float score;
     public TextMeshProUGUI scoreText;
     public int level;
@@ -19,6 +21,16 @@ public class ScoreManager : MonoBehaviour
         secondsElapsed = 0;
         minutesElapsed = 0;
         score = 0f;
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Keep this GameObject alive across scene loads
+        }
+        else
+        {
+            Destroy(gameObject); // If there is already another instance, destroy this one
+        }
     }
 
     // Update is called once per frame
@@ -55,14 +67,47 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            if (secondsElapsed < 10)
+            {
+                scoreText.text = "Time: " + minutesElapsed + ":0" + secondsElapsed;
+            }
+            else
+            {
+                scoreText.text = "Time: " + minutesElapsed + ":" + secondsElapsed;
+            }
+        }
+    }
+
     // Public method to get the current score
     public float GetScore()
     {
         return score;
     }
 
-    public float GetLevel()
+    // Public method to set the current level
+    public void SetLevel(int newLevel)
+    {
+        level = newLevel;
+    }
+
+    public int GetLevel()
     {
         return level;
+    }
+
+    // Method to save scores to XML
+    public void SaveScores(List<HighScoreEntry> scoresToSave)
+    {
+        XMLManager.instance.SaveScores(scoresToSave, level);
+    }
+
+    // Method to load scores from XML
+    public List<HighScoreEntry> LoadScores()
+    {
+        return XMLManager.instance.LoadScores(level);
     }
 }
