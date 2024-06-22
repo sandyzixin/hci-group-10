@@ -939,11 +939,11 @@ MonoBehaviour:
   nameInputField: {fileID: 0}
   submitButton: {fileID: 0}
   highScoreDisplayArray:
-  - {fileID: 226298131}
-  - {fileID: 790886374}
-  - {fileID: 2141041459}
-  - {fileID: 692416552}
   - {fileID: 578732356}
+  - {fileID: 692416552}
+  - {fileID: 2141041459}
+  - {fileID: 790886374}
+  - {fileID: 226298131}
   scoreManager: {fileID: 0}
 --- !u!1 &790886372
 GameObject:

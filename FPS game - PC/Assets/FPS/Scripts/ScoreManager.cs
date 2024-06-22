@@ -1,68 +1,53 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
-    private float score;
-    public TextMeshProUGUI scoreText;
-    public int level;
     private float timer;
     private int secondsElapsed;
     private int minutesElapsed;
 
-    // Start is called before the first frame update
+    public TextMeshProUGUI scoreText;
+    public int level;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return; // Ensure we don't execute the rest of the Awake code for this new instance
+        }
+    }
+
     void Start()
     {
         timer = 0f;
         secondsElapsed = 0;
         minutesElapsed = 0;
-        score = 0f;
-
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this GameObject alive across scene loads
-        }
-        else
-        {
-            Destroy(gameObject); // If there is already another instance, destroy this one
-        }
+        UpdateScoreText();
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (secondsElapsed == 59)
-        {
-            minutesElapsed++;
-            secondsElapsed = -1;
-        }
-
-        
 
         if (timer >= 1.0f)
         {
-            score = minutesElapsed + (secondsElapsed * 0.1f);
-            // Increment the elapsed seconds counter
             secondsElapsed++;
-
-            if (secondsElapsed < 10)
+            if (secondsElapsed == 60)
             {
-                //scoreText.text = "Score: " + score + " | Time: " + minutesElapsed + ":0" + secondsElapsed;
-                scoreText.text = "Time: " + minutesElapsed + ":0" + secondsElapsed;
-            }
-            else
-            {
-                //scoreText.text = "Score: " + score + " | Time: " + minutesElapsed + ":" + secondsElapsed;
-                scoreText.text = "Time: " + minutesElapsed + ":" + secondsElapsed;
+                minutesElapsed++;
+                secondsElapsed = 0;
             }
 
-            // Reset the timer
+            UpdateScoreText();
             timer = 0.0f;
         }
     }
@@ -71,24 +56,15 @@ public class ScoreManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            if (secondsElapsed < 10)
-            {
-                scoreText.text = "Time: " + minutesElapsed + ":0" + secondsElapsed;
-            }
-            else
-            {
-                scoreText.text = "Time: " + minutesElapsed + ":" + secondsElapsed;
-            }
+            scoreText.text = "Time: " + minutesElapsed.ToString("00") + ":" + secondsElapsed.ToString("00");
         }
     }
 
-    // Public method to get the current score
     public float GetScore()
     {
-        return score;
+        return minutesElapsed * 60 + secondsElapsed;
     }
 
-    // Public method to set the current level
     public void SetLevel(int newLevel)
     {
         level = newLevel;
@@ -99,13 +75,11 @@ public class ScoreManager : MonoBehaviour
         return level;
     }
 
-    // Method to save scores to XML
     public void SaveScores(List<HighScoreEntry> scoresToSave)
     {
         XMLManager.instance.SaveScores(scoresToSave, level);
     }
 
-    // Method to load scores from XML
     public List<HighScoreEntry> LoadScores()
     {
         return XMLManager.instance.LoadScores(level);

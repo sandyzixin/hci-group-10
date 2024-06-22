@@ -1,24 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Xml.Serialization;
 using System.IO;
-using Unity.VisualScripting;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.SocialPlatforms;
+using System.Xml.Serialization;
+using UnityEngine;
 
 public class XMLManager : MonoBehaviour
 {
     public static XMLManager instance;
-    //public Leaderboard leaderboard1;
-    //public Leaderboard leaderboard2;
-    //public Leaderboard leaderboard3; 
-    //public ScoreManager scoreManager; //ik heb een getLevel functie in ScoreManager gezet,
-                                      //je zou misschien iets kunnen doen van als level 1 voer deze code uit met leaderbord als level == 2 met leaderboard2 etc
-    
+
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Keep this GameObject alive across scene loads
+        }
+        else
+        {
+            Destroy(gameObject); // If there is already another instance, destroy this one
+        }
 
         if (!Directory.Exists(Application.persistentDataPath + "/HighScores/"))
         {
@@ -28,24 +27,14 @@ public class XMLManager : MonoBehaviour
 
     public void SaveScores(List<HighScoreEntry> scoresToSave, int level)
     {
-
         string fileName = "highscores" + level + ".xml";
-
-        Leaderboard leaderboard = new Leaderboard();
-        leaderboard.list = scoresToSave;
+        Leaderboard leaderboard = new Leaderboard { list = scoresToSave };
 
         XmlSerializer serializer = new XmlSerializer(typeof(Leaderboard));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/HighScores/" + fileName, FileMode.Create);
-        serializer.Serialize(stream, leaderboard);
-        stream.Close();
-    }
-
-    void SaveLeaderboard(Leaderboard leaderboard, string fileName)
-    {
-        XmlSerializer serializer = new XmlSerializer(typeof(Leaderboard));
-        FileStream stream = new FileStream(Application.persistentDataPath + "/HighScores/" + fileName, FileMode.Create);
-        serializer.Serialize(stream, leaderboard);
-        stream.Close();
+        using (FileStream stream = new FileStream(Application.persistentDataPath + "/HighScores/" + fileName, FileMode.Create))
+        {
+            serializer.Serialize(stream, leaderboard);
+        }
     }
 
     public List<HighScoreEntry> LoadScores(int level)
@@ -56,19 +45,17 @@ public class XMLManager : MonoBehaviour
         if (File.Exists(filePath))
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Leaderboard));
-            FileStream stream = new FileStream(filePath, FileMode.Open);
-            Leaderboard leaderboard = serializer.Deserialize(stream) as Leaderboard;
-            stream.Close();
-            return leaderboard.list;
+            using (FileStream stream = new FileStream(filePath, FileMode.Open))
+            {
+                Leaderboard leaderboard = serializer.Deserialize(stream) as Leaderboard;
+                return leaderboard.list;
+            }
         }
         else
         {
             return new List<HighScoreEntry>();
         }
-
     }
-
-
 }
 
 [System.Serializable]
@@ -77,3 +64,9 @@ public class Leaderboard
     public List<HighScoreEntry> list = new List<HighScoreEntry>();
 }
 
+[System.Serializable]
+public class HighScoreEntry
+{
+    public string name;
+    public float score;
+}
