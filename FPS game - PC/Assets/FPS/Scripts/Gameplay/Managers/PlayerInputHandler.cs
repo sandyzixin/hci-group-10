@@ -6,7 +6,17 @@ namespace Unity.FPS.Gameplay
     public class PlayerInputHandler : MonoBehaviour
     {
         [Tooltip("Sensitivity multiplier for moving the camera around")]
-        public float LookSensitivity = 1f;
+        public float LookSensitivity
+        {
+            get => lookSensitivity;
+            set
+            {
+                lookSensitivity = value;
+                // Apply sensitivity change to your input system
+            }
+        }
+
+        private float lookSensitivity;
 
         [Tooltip("Additional sensitivity multiplier for WebGL")]
         public float WebglLookSensitivityMultiplier = 0.25f;
@@ -34,6 +44,7 @@ namespace Unity.FPS.Gameplay
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            LookSensitivity = SettingsManager.LookSensitivity;
         }
 
         void LateUpdate()
