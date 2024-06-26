@@ -12,7 +12,7 @@ public class HighScoreDisplay : MonoBehaviour
         nameText.text = name;
         int minutes = Mathf.FloorToInt(score / 60);
         int seconds = Mathf.FloorToInt(score % 60);
-        scoreText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        scoreText.text = string.Format("{00:00}:{1:00}", minutes, seconds);
     }
 
     public void HideEntryDisplay()
