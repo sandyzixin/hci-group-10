@@ -34,6 +34,9 @@ namespace Unity.FPS.Gameplay
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            // Load saved look sensitivity
+            LookSensitivity = PlayerPrefs.GetFloat("LookSensitivity", LookSensitivity);
         }
 
         void LateUpdate()

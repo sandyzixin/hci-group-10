@@ -52,8 +52,8 @@ namespace Unity.FPS.UI
 
             MenuRoot.SetActive(false);
 
-            // Load settings from PlayerPrefs NEW
-            // LoadSettings();
+            // Load settings from PlayerPrefs
+            LoadSettings();
 
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
             LookSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
@@ -141,11 +141,15 @@ namespace Unity.FPS.UI
         void OnMouseSensitivityChanged(float newValue)
         {
             m_PlayerInputsHandler.LookSensitivity = newValue;
+            PlayerPrefs.SetFloat("LookSensitivity", newValue);
+            PlayerPrefs.Save();
         }
 
         void OnShadowsChanged(bool newValue)
         {
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
+            PlayerPrefs.SetInt("Shadows", newValue ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         // Disabled
@@ -162,11 +166,31 @@ namespace Unity.FPS.UI
         void OnFramerateCounterChanged(bool newValue)
         {
             m_FramerateCounter.UIText.gameObject.SetActive(newValue);
+            PlayerPrefs.SetInt("FramerateCounter", newValue ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         public void OnShowControlButtonClicked(bool show)
         {
             ControlImage.SetActive(show);
+        }
+
+        void LoadSettings()
+        {
+            // Load Look Sensitivity
+            float sensitivity = PlayerPrefs.GetFloat("LookSensitivity", m_PlayerInputsHandler.LookSensitivity);
+            m_PlayerInputsHandler.LookSensitivity = sensitivity;
+            LookSensitivitySlider.value = sensitivity;
+
+            // Load Shadows
+            bool shadowsOn = PlayerPrefs.GetInt("Shadows", 1) == 1;
+            QualitySettings.shadows = shadowsOn ? ShadowQuality.All : ShadowQuality.Disable;
+            ShadowsToggle.isOn = shadowsOn;
+
+            // Load Framerate Counter
+            bool framerateOn = PlayerPrefs.GetInt("FramerateCounter", 0) == 1;
+            m_FramerateCounter.UIText.gameObject.SetActive(framerateOn);
+            FramerateToggle.isOn = framerateOn;
         }
     }
 }
