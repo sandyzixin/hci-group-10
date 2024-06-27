@@ -4378,7 +4378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a148084a30e144eb24bb34985d6007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1915564296}
+  scoreText: {fileID: 4008933581619590515}
   level: 3
 --- !u!4 &1201896284
 Transform:
@@ -7785,18 +7785,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 22027999}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1915564296 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5341258480459070187, guid: c996b53e9f849234393d1e90f68d1679,
-    type: 3}
-  m_PrefabInstance: {fileID: 4008933581619590512}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1915989593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10051,7 +10039,7 @@ PrefabInstance:
         type: 3}
       propertyPath: scoreText
       value: 
-      objectReference: {fileID: 1915564296}
+      objectReference: {fileID: 0}
     - target: {fileID: 290083449352216782, guid: c996b53e9f849234393d1e90f68d1679,
         type: 3}
       propertyPath: pointsPerSecond
@@ -10423,6 +10411,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4008933581619590515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2555453428608481854, guid: c996b53e9f849234393d1e90f68d1679,
+    type: 3}
+  m_PrefabInstance: {fileID: 4008933581619590512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9217268748774167426
 PrefabInstance:
   m_ObjectHideFlags: 0
