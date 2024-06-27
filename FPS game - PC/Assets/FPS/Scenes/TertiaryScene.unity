@@ -10413,7 +10413,7 @@ AudioSource:
     m_RotationOrder: 4
 --- !u!114 &4008933581619590515 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2555453428608481854, guid: c996b53e9f849234393d1e90f68d1679,
+  m_CorrespondingSourceObject: {fileID: 8063601276778106319, guid: c996b53e9f849234393d1e90f68d1679,
     type: 3}
   m_PrefabInstance: {fileID: 4008933581619590512}
   m_PrefabAsset: {fileID: 0}
