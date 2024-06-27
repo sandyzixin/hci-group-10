@@ -6227,6 +6227,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6513321761647096286, guid: c996b53e9f849234393d1e90f68d1679,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6840976232943533885, guid: c996b53e9f849234393d1e90f68d1679,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -6422,7 +6427,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: c996b53e9f849234393d1e90f68d1679, type: 3}
 --- !u!114 &4008933581619590513 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5341258480459070187, guid: c996b53e9f849234393d1e90f68d1679,
+  m_CorrespondingSourceObject: {fileID: 3763944935948719658, guid: c996b53e9f849234393d1e90f68d1679,
     type: 3}
   m_PrefabInstance: {fileID: 4008933581619590512}
   m_PrefabAsset: {fileID: 0}
