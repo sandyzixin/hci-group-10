@@ -44,5 +44,12 @@ namespace Unity.FPS.Game
                 }
             }
         }
+        public void SetMasterVolume(float volume)
+        {
+            // Assuming the master volume parameter in the AudioMixer is named "MasterVolume"
+            // Convert slider value (0-1) to decibels (-80dB to 0dB)
+            float dB = Mathf.Lerp(-80f, 0f, volume);
+            SetFloat("Master", dB);
+        }
     }
 }

@@ -11,7 +11,8 @@ namespace Unity.FPS.UI
         [Tooltip("Root GameObject of the menu used to toggle its activation")]
         public GameObject MenuRoot;
 
-        [Tooltip("Master volume when menu is open")] [Range(0.001f, 1f)]
+        [Tooltip("Master volume when menu is open")]
+        [Range(0.001f, 1f)]
         public float VolumeWhenMenuOpen = 0.5f;
 
         [Tooltip("Slider component for look sensitivity")]
@@ -20,8 +21,12 @@ namespace Unity.FPS.UI
         [Tooltip("Toggle component for shadows")]
         public Toggle ShadowsToggle;
 
-        [Tooltip("Toggle component for invincibility")]
-        public Toggle InvincibilityToggle;
+        [Tooltip("Slider component for volume")]
+        public Slider VolumeSlider;
+
+        // Disabled
+        //[Tooltip("Toggle component for invincibility")]
+        //public Toggle InvincibilityToggle;
 
         [Tooltip("Toggle component for framerate display")]
         public Toggle FramerateToggle;
@@ -47,14 +52,21 @@ namespace Unity.FPS.UI
 
             MenuRoot.SetActive(false);
 
+            // Load settings from PlayerPrefs
+            LoadSettings();
+
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
             LookSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
 
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
 
-            InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
-            InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
+            VolumeSlider.value = AudioUtility.GetMasterVolume();
+            VolumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+
+            // Disabled
+            //InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
+            //InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
 
             FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
             FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
@@ -112,7 +124,7 @@ namespace Unity.FPS.UI
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 Time.timeScale = 0f;
-                AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
+                // Removed: AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
 
                 EventSystem.current.SetSelectedGameObject(null);
             }
@@ -121,7 +133,7 @@ namespace Unity.FPS.UI
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 Time.timeScale = 1f;
-                AudioUtility.SetMasterVolume(1);
+                // Removed: AudioUtility.SetMasterVolume(1);
             }
 
         }
@@ -129,26 +141,56 @@ namespace Unity.FPS.UI
         void OnMouseSensitivityChanged(float newValue)
         {
             m_PlayerInputsHandler.LookSensitivity = newValue;
+            PlayerPrefs.SetFloat("LookSensitivity", newValue);
+            PlayerPrefs.Save();
         }
 
         void OnShadowsChanged(bool newValue)
         {
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
+            PlayerPrefs.SetInt("Shadows", newValue ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
-        void OnInvincibilityChanged(bool newValue)
+        // Disabled
+        //void OnInvincibilityChanged(bool newValue)
+        //{
+        //    m_PlayerHealth.Invincible = newValue;
+        //}
+
+        void OnVolumeChanged(float newValue)
         {
-            m_PlayerHealth.Invincible = newValue;
+            AudioUtility.SetMasterVolume(newValue);
         }
 
         void OnFramerateCounterChanged(bool newValue)
         {
             m_FramerateCounter.UIText.gameObject.SetActive(newValue);
+            PlayerPrefs.SetInt("FramerateCounter", newValue ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         public void OnShowControlButtonClicked(bool show)
         {
             ControlImage.SetActive(show);
+        }
+
+        void LoadSettings()
+        {
+            // Load Look Sensitivity
+            float sensitivity = PlayerPrefs.GetFloat("LookSensitivity", m_PlayerInputsHandler.LookSensitivity);
+            m_PlayerInputsHandler.LookSensitivity = sensitivity;
+            LookSensitivitySlider.value = sensitivity;
+
+            // Load Shadows
+            bool shadowsOn = PlayerPrefs.GetInt("Shadows", 1) == 1;
+            QualitySettings.shadows = shadowsOn ? ShadowQuality.All : ShadowQuality.Disable;
+            ShadowsToggle.isOn = shadowsOn;
+
+            // Load Framerate Counter
+            bool framerateOn = PlayerPrefs.GetInt("FramerateCounter", 0) == 1;
+            m_FramerateCounter.UIText.gameObject.SetActive(framerateOn);
+            FramerateToggle.isOn = framerateOn;
         }
     }
 }

@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCamera: {fileID: 8303093099919959869}
   AudioSource: {fileID: 1272397862697293493}
-  GravityDownForce: 20
+  GravityDownForce: 26
   GroundCheckLayers:
     serializedVersion: 2
     m_Bits: 1
