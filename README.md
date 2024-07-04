@@ -25,8 +25,9 @@ This repository is used during the project to collaborate on the Unity Games.
 * Make sure you have only the "IntroMenu" scene loaded in the hierarchy.
 * Run the game by clicking on play.
 
+## Notes
 
-## Help
-
-When the "IntroMenu" scene is not in the hierarchy, you can find the scene in Assets/FPS/Scenes/ and drag the correct scene in the hierarchy.
-When there are multiple scenes running at the same time, make sure only the "IntroMenu" scene is loaded.
+* For the controller version, the win scene where you need to input a player name, should be used with keyboard and mouse.
+* When the "IntroMenu" scene is not in the hierarchy, you can find the scene in Assets/FPS/Scenes/ and drag the correct scene in the hierarchy.
+* When there are multiple scenes running at the same time, make sure only the "IntroMenu" scene is loaded.
+* When you load in a level, but cannot move, open and close the option menu. It should then load the level corretly.
